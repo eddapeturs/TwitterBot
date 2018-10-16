@@ -1,0 +1,56 @@
+MALFRIDUR TOKENS:
+
+var T = new Twit({
+    consumer_key:         'zsVBbsPmX71DitLumNRYbRQsT',
+    consumer_secret:      'D9ZkLKlPY3kwTE0OdoHfaFq2k4RNrad4VbX5AqZOKdXKcDseXK',
+    access_token:         '1050431819638820864-nlohhjEusOPCfAfZ5aM2OZUhlpNMiC',
+    access_token_secret:  'z2uaGmrlVzU3aLLK3QWdDgkecYNElLQHsPWAKHZN7Imp4'
+});
+
+// var Twit = require('twit');
+
+//
+//
+// var T = new Twit({
+//     consumer_key:         'ExapYRwl8yC9kR0gD4RJ0Dxnv',
+//     consumer_secret:      'Vo6CspHB7NPGlV1xCGPUx7nszQGbG45XWpvaaNKFlHzh9UUfYs',
+//     access_token:         '3302852710-PfLzbgnFbwZvEWFXuAheR34qOoFJN6WeYYvoL1S ',
+//     access_token_secret:  'EkrOLjs4To74KusXijnPMvgy94loJgO0w0dKNBZwEO19e',
+//     timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
+//     strictSSL:            true,     // optional - requires SSL certificates to be valid.
+// });
+//
+//
+// var users = ["3302852710"];
+//
+// T.post('statuses/update', { status: 'hello world!' }, function(err, data, response) {
+//     console.log(data)
+// })
+
+// T.get('followers/ids', { screen_name: 'eddapeturs' },  function (err, data, response) {
+//     console.log(data)
+// });
+
+// var stream = T.stream('statuses/sample');
+
+// stream.on('tweet', function (tweet) {
+//     console.log(tweet)
+// });
+
+
+// var stream = T.stream('statuses/filter', {follow: users,  twit_options: { retry: true }});
+// stream.on('tweet', function (tweet) {
+//     if (users.indexOf(tweet.user.id_str) > -1) {
+//         console.log(tweet.user.name + ": " + tweet.text);
+//         T.post('statuses/retweet/:id', { id: tweet.id_str }, function (err, data, response) {
+//             console.log(data)
+//         })
+//     }
+// })
+
+
+
+
+/**
+ * Created by edda on 11.10.2018.
+ */
