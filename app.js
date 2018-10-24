@@ -4,8 +4,20 @@ var fact = require('./factory.js');
 var Buffer = require('buffer').Buffer;
 var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
+// var server = require('http').createServer();
+// var io = require('socket.io')(client);
+// const io = require('socket.io-client');
 
-
+// var socket = io.connect('http://localhost:9000' );
+// io.on('connection', function(client){
+//     client.on('event', function(data){
+//         console.log('Connected! : ', data);
+//     });
+//     client.on('disconnect', function(){});
+// });
+// server.listen(9000);
+//
+// io.sockets.emit('hi', 'everyone');
 
 var T = new Twitter(config);
 var parsedTweet;
@@ -46,14 +58,14 @@ var params = {
     // lang: 'en'
 };
 
-T.get('search/tweets', params, function(err, data, response) {
-    if(!err){
-        // console.log('Data: ', data);
-        // This is where the magic will happen
-    } else {
-        console.log(err);
-    }
-});
+// T.get('search/tweets', params, function(err, data, response) {
+//     if(!err){
+//         // console.log('Data: ', data);
+//         // This is where the magic will happen
+//     } else {
+//         console.log(err);
+//     }
+// });
 
 
 
@@ -101,32 +113,79 @@ function startStream(userIds){
             console.log('INCOMING: ', tweet.user.name + ": " + tweet.text)
             var stripped = stripCommand(tweet.text);
             console.log('stripped: ', stripped);
-            fact.getParsedString(stripped)
-                .then(function(data){
-                    var newStr = data.toString();
-                    var jsonStr = JSON.parse(newStr)
-                    console.log('JsonTagg: ', jsonStr.tagg);
-                    },
-                function(err){
-                    console.log('Error: ', err);
-                })
+            // getParsedString(stripped)
         }
     });
 }
 
+// Update status
+function updateStatus(obj){
+    var params = {
+        status: '@' + obj.username + ' ' + obj.text
+    };
+
+    T.post('statuses/update', params);
+}
+
+
+// Parse the string using IceNLP
+function getProcessedString(text){
+    fact.getParsedString(text)
+        .then(function(data){
+                var newStr = data.toString();
+                var jsonStr = JSON.parse(newStr)
+                console.log('JsonTagg: ', jsonStr.tagg);
+            },
+            function(err){
+                console.log('Error: ', err);
+            })
+}
 
 // Function to remove 'tag' or 'parse' commands from tweet and save it
 function stripCommand(originalTweet){
     var str;
+    var obj = {
+        text: '',
+        type: ''
+    };
+
     var tweet = originalTweet.toLowerCase();
-    if(tweet.includes('tag')){
-        str = tweet.replace('tag', '');         // replace 'tag' with nothing
-    } else if(tweet.includes('parse')){
-        str = tweet.replace('tag', '');
+    if(tweet.includes(' -t ')){
+        str = tweet.replace(' -t ', '');        // replace 'tag' with nothing
+        obj.text = str;
+        obj.type = 'tagg'
     }
-    return str;
+    else if(tweet.includes(' -p ')){
+        str = tweet.replace(' -p ', '');
+        obj.text = str;
+        obj.type = 'parse';
+    }
+    return obj;
 }
 
+
+function getParsedText(text){
+    getProcessedString(text)
+        .then(function(data){
+            var newStr = data.toString();
+            var jsonStr = JSON.parse(newStr)
+            // console.log('JsonTagg: ', jsonStr.tagg);
+            return jsonStr.parse;
+        });
+}
+
+function getTaggedText(text){
+    getProcessedString(text)
+        .then(function(data){
+            var newStr = data.toString();
+            var jsonStr = JSON.parse(newStr)
+            // console.log('JsonTagg: ', jsonStr.tagg);
+            return jsonStr.tagg;
+        });
+}
+
+
+testFactory();
 function testFactory(){
     var text = "Hello my name is John";
     fact.getParsedString(text)
@@ -134,7 +193,8 @@ function testFactory(){
             console.log('succ', succ);
             var buffer = iconv.convert(succ);
             var newStr = buffer.toString();
-            return JSON.parse(newStr);
+            console.log('NewStr: ', newStr)
+            // return JSON.parse(newStr);
 
         }, function(err){
             console.log('errTweet: ', err);

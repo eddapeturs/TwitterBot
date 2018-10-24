@@ -6,7 +6,10 @@ var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
 
 // Move to ENV!
-var baseUrl = '130.208.244.107';
+var baseUrl = 'localhost';
+// var baseUrl = '127.0.0.1';
+// var baseUrl = '130.208.244.107';
+// var baseUrl = '130.208.240.8';
 var port = '9000';
 var parsedTweet;
 
@@ -19,11 +22,13 @@ module.exports = {
 
 
 var options = {
+    gzip:true,
     hostname: baseUrl,
     port: port,
     path: '/Get',
     method: 'POST',
     headers: {
+        "connection": "keep-alive",
         "content-type": "application/json"
     }
 };
@@ -35,6 +40,8 @@ function getParsedString(tweetText){
         const postData = querystring.stringify({
             'string': tweetText
         });
+
+        console.log('Connection on: ', options);
 
         const req = http.request(options, function(res) {
                 res.on('data', function(chunk) {
