@@ -22,13 +22,13 @@ module.exports = {
 
 
 var options = {
-    gzip:true,
+    // gzip:true,
     hostname: baseUrl,
     port: port,
     path: '/Get',
     method: 'POST',
     headers: {
-        "connection": "keep-alive",
+        // "connection": "keep-alive",
         "content-type": "application/json"
     }
 };
@@ -212,7 +212,8 @@ var shitRobotsSay = [
     'Beep Boop Boop',
     '01000101 01100100 01100100 01100001',
     'Hafið þið séð Wall-E? Það er uppáhalds myndin mín!',
-    '127.0.0.1 er best'
+    '127.0.0.1 er best',
+    'KILL ALL HUMANS... hehehe grín'
 ];
 
 

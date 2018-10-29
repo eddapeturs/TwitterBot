@@ -4,43 +4,31 @@ var fact = require('./factory.js');
 var Buffer = require('buffer').Buffer;
 var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
-// var server = require('http').createServer();
-// var io = require('socket.io')(client);
-// const io = require('socket.io-client');
-
-// var socket = io.connect('http://localhost:9000' );
-// io.on('connection', function(client){
-//     client.on('event', function(data){
-//         console.log('Connected! : ', data);
-//     });
-//     client.on('disconnect', function(){});
-// });
-// server.listen(9000);
-//
-// io.sockets.emit('hi', 'everyone');
 
 var T = new Twitter(config);
 var parsedTweet;
 var userIds; // all users to follow
+var userId = '3302852710';
 
-var now = new Date();
-var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
-if (millisTill10 < 0) {
-    millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
-}
+// var now = new Date();
+// var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+// if (millisTill10 < 0) {
+//     millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+// }
+
+
 
 // Tweet once a day
-setTimeout(function() {
-        // Tweet random bullshit
-        var randStat = fact.getRandPhrase();
-        T.post('statuses/update', { status: randStat })
-         // restart connection here with new userlist
-    }, millisTill10);
+// setTimeout(function() {
+//         // Tweet random bullshit
+//         var randStat = fact.getRandPhrase();
+//         T.post('statuses/update', { status: randStat })
+//          // restart connection here with new userlist
+//     }, millisTill10);
 
-// DEV Stuff tbd
-var userId = '3302852710';
+
+
 // Get all followers
-
 getFollowers()
     .then(startStream)
     .catch(function(err){
@@ -111,8 +99,8 @@ function startStream(userIds){
     stream.on('data', function (tweet) {
         if (userIds.indexOf(tweet.user.id_str) > -1) {
             console.log('INCOMING: ', tweet.user.name + ": " + tweet.text)
-            var stripped = stripCommand(tweet.text);
-            console.log('stripped: ', stripped);
+            // var stripped = stripCommand(tweet.text);
+            getProcessedString(stripCommand(tweet));
             // getParsedString(stripped)
         }
     });
@@ -120,21 +108,26 @@ function startStream(userIds){
 
 // Update status
 function updateStatus(obj){
-    var params = {
-        status: '@' + obj.username + ' ' + obj.text
-    };
+    console.log('@' + obj.username + ' ' + obj.response)
 
-    T.post('statuses/update', params);
+    // var params = {
+    //     status: '@' + obj.username + ' ' + obj.text
+    // };
+    //
+    // T.post('statuses/update', params);
 }
 
 
 // Parse the string using IceNLP
-function getProcessedString(text){
-    fact.getParsedString(text)
+function getProcessedString(object){
+    fact.getParsedString(object.text)
         .then(function(data){
                 var newStr = data.toString();
-                var jsonStr = JSON.parse(newStr)
-                console.log('JsonTagg: ', jsonStr.tagg);
+                var jsonStr = JSON.parse(newStr);
+                console.log('JsonTagg: ', jsonStr);
+                object.response = jsonStr[object.type];
+                updateStatus(object);
+                return jsonStr;
             },
             function(err){
                 console.log('Error: ', err);
@@ -142,21 +135,22 @@ function getProcessedString(text){
 }
 
 // Function to remove 'tag' or 'parse' commands from tweet and save it
-function stripCommand(originalTweet){
+function stripCommand(tweet){
     var str;
     var obj = {
+        username: tweet.user.name,
         text: '',
         type: ''
     };
 
-    var tweet = originalTweet.toLowerCase();
-    if(tweet.includes(' -t ')){
-        str = tweet.replace(' -t ', '');        // replace 'tag' with nothing
+    var tw = tweet.text.toLowerCase();
+    if(tw.includes('-t')){
+        str = tw.replace('-t ', '');        // replace 'tag' with nothing
         obj.text = str;
         obj.type = 'tagg'
     }
-    else if(tweet.includes(' -p ')){
-        str = tweet.replace(' -p ', '');
+    else if(tw.includes('-p')){
+        str = tw.replace('-p', '');
         obj.text = str;
         obj.type = 'parse';
     }
@@ -164,28 +158,9 @@ function stripCommand(originalTweet){
 }
 
 
-function getParsedText(text){
-    getProcessedString(text)
-        .then(function(data){
-            var newStr = data.toString();
-            var jsonStr = JSON.parse(newStr)
-            // console.log('JsonTagg: ', jsonStr.tagg);
-            return jsonStr.parse;
-        });
-}
-
-function getTaggedText(text){
-    getProcessedString(text)
-        .then(function(data){
-            var newStr = data.toString();
-            var jsonStr = JSON.parse(newStr)
-            // console.log('JsonTagg: ', jsonStr.tagg);
-            return jsonStr.tagg;
-        });
-}
 
 
-testFactory();
+// testFactory();
 function testFactory(){
     var text = "Hello my name is John";
     fact.getParsedString(text)
