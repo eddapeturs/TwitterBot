@@ -105,7 +105,7 @@ function startStream(userIds){
 function updateStatus(obj){
     console.log('@' + obj.username + ' ' + obj.response)
     var params = {
-        status: '@' + obj.username + ' ' + obj.text
+        status: '@' + obj.username + ' ' + obj.response
     };
     T.post('statuses/update', params);
 }
