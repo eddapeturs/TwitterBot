@@ -29,11 +29,11 @@ var userId = '3302852710';
 
 
 // Get all followers
-// getFollowers()
-//     .then(startStream)
-//     .catch(function(err){
-//         console.log('Any error handling here bla: ', err);
-//     });
+getFollowers()
+    .then(startStream)
+    .catch(function(err){
+        console.log('Any error handling here bla: ', err);
+    });
 
 // function handleError(err){
 //     console.log('Handling error?', err);
@@ -160,18 +160,18 @@ function stripCommand(tweet){
 
 
 
-testFactory();
-function testFactory(){
-    var text = "Hello my name is Carl";
-    fact.getParsedString(text)
-        .then(function(succ){
-            console.log('succ', succ);
-            var buffer = iconv.convert(succ);
-            var newStr = buffer.toString();
-            console.log('NewStr: ', newStr)
-            // return JSON.parse(newStr);
-
-        }, function(err){
-            console.log('errTweet: ', err);
-        })
-}
+// testFactory();
+// function testFactory(){
+//     var text = "Hello my name is Carl";
+//     fact.getParsedString(text)
+//         .then(function(succ){
+//             console.log('succ', succ);
+//             var buffer = iconv.convert(succ);
+//             var newStr = buffer.toString();
+//             console.log('NewStr: ', newStr)
+//             // return JSON.parse(newStr);
+//
+//         }, function(err){
+//             console.log('errTweet: ', err);
+//         })
+// }
