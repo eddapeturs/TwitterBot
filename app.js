@@ -85,15 +85,10 @@ function getFollowers(){
 
 // Start streaming content from all user following bot
 function startStream(userIds){
-
-    // console.log('userIds before: ', userIds);
     var params = {
         follow: userIds.toString()
     };
-    // console.log('params: ', params);
-    // var stream = T.stream('statuses/filter', {track: 'tag, parse', follow: userIds}); // add tag and parse later
-    // console.log('userids: ', userIds);
-    // var stream = T.stream('statuses/filter', { follow: userIds.toString() });
+
     var stream = T.stream('statuses/filter', params);
 
     stream.on('data', function (tweet) {
@@ -109,12 +104,10 @@ function startStream(userIds){
 // Update status
 function updateStatus(obj){
     console.log('@' + obj.username + ' ' + obj.response)
-
-    // var params = {
-    //     status: '@' + obj.username + ' ' + obj.text
-    // };
-    //
-    // T.post('statuses/update', params);
+    var params = {
+        status: '@' + obj.username + ' ' + obj.text
+    };
+    T.post('statuses/update', params);
 }
 
 
