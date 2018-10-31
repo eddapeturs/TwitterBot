@@ -29,11 +29,11 @@ var userId = '3302852710';
 
 
 // Get all followers
-getFollowers()
-    .then(startStream)
-    .catch(function(err){
-        console.log('Any error handling here bla: ', err);
-    });
+// getFollowers()
+//     .then(startStream)
+//     .catch(function(err){
+//         console.log('Any error handling here bla: ', err);
+//     });
 
 // function handleError(err){
 //     console.log('Handling error?', err);
@@ -145,12 +145,12 @@ function stripCommand(tweet){
 
     var tw = tweet.text.toLowerCase();
     if(tw.includes('-t')){
-        str = tw.replace('-t ', '');        // replace 'tag' with nothing
+        str = tw.replace('-t ', '');        // Replace '-t' with nothing
         obj.text = str;
-        obj.type = 'tagg'
+        obj.type = 'tagg'                   // Give correct type for return
     }
     else if(tw.includes('-p')){
-        str = tw.replace('-p', '');
+        str = tw.replace('-p ', '');
         obj.text = str;
         obj.type = 'parse';
     }
@@ -160,9 +160,9 @@ function stripCommand(tweet){
 
 
 
-// testFactory();
+testFactory();
 function testFactory(){
-    var text = "Hello my name is John";
+    var text = "Hello my name is Carl";
     fact.getParsedString(text)
         .then(function(succ){
             console.log('succ', succ);

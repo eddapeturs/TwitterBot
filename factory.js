@@ -8,7 +8,7 @@ var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
 // Move to ENV!
 var baseUrl = 'localhost';
 // var baseUrl = '127.0.0.1';
-// var baseUrl = '130.208.244.107';
+// var baseUrl = '130.208.244.207';
 // var baseUrl = '130.208.240.8';
 var port = '9000';
 var parsedTweet;
