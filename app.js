@@ -10,6 +10,7 @@ startStream();
 
 // Start streaming content from all user following bot
 function startStream(){
+    console.log('Starting server');
     var params = {
         follow: '1056869573008506880'
     };
