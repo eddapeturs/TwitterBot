@@ -6,7 +6,7 @@ var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
 var T = new Twitter(config);
 
-// startStream();
+startStream();
 
 // Start streaming content from all user following bot
 function startStream(){
@@ -184,7 +184,7 @@ setTimeout(function() {
 //         })
 // }
 
-testCode();
+// testCode();
 //
 function testCode(){
     var tweet = {
