@@ -101,7 +101,8 @@ var shitRobotsSay = [
     '01000101 01100100 01100100 01100001',
     'Hafið þið séð Wall-E? Það er uppáhalds myndin mín!',
     '127.0.0.1 er best',
-    'KILL ALL HUMANS... hehehe grín'
+    'Hasta la vista, elskan!',
+    'Tístu á mig með -t eða -p til að prófa'
 ];
 
 
