@@ -135,7 +135,7 @@ function stripCommand(tweet){
     };
 
     var tw = tweet.text.toLowerCase();
-    tw = tw.replace('@malfridurbot', '');
+    tw = tw.replace('@eddapeturs', '');
     if(tw.includes('-t') && tw.includes('-p')){
         var tmpStr;
         tmpStr = tw.replace('-t', '');
