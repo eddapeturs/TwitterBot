@@ -1,10 +1,14 @@
 var Twitter = require('twitter');
 var config = require('./config.js');
 var fact = require('./factory.js');
-// var Buffer = require('buffer').Buffer;
 var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
+
 var T = new Twitter(config);
+
+// Botthildur : 1052332676882026497
+// Malfridur : 1056869573008506880
+// Edda: 3302852710
 
 startStream();
 
@@ -12,14 +16,14 @@ startStream();
 function startStream(){
     console.log('Starting server');
     var params = {
-        follow: '1056869573008506880'
+        follow: '3302852710'
     };
 
     var stream = T.stream('statuses/filter', params);
 
     stream.on('data', function (tweet) {
 
-        if(tweet.in_reply_to_user_id_str == '1056869573008506880'){
+        if(tweet.in_reply_to_user_id_str == '3302852710'){
             console.log('In reply to: ', tweet.in_reply_to_user_id_str);
             getProcessedString(stripCommand(tweet))
                 .then(createResponse)
