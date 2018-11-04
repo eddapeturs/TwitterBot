@@ -16,14 +16,14 @@ startStream();
 function startStream(){
     console.log('Starting server');
     var params = {
-        follow: '3302852710'
+        follow: '1056869573008506880'
     };
 
     var stream = T.stream('statuses/filter', params);
 
     stream.on('data', function (tweet) {
 
-        if(tweet.in_reply_to_user_id_str == '3302852710'){
+        if(tweet.in_reply_to_user_id_str == '1056869573008506880'){
             console.log('In reply to: ', tweet.in_reply_to_user_id_str);
             getProcessedString(stripCommand(tweet))
                 .then(createResponse)
@@ -135,7 +135,7 @@ function stripCommand(tweet){
     };
 
     var tw = tweet.text.toLowerCase();
-    tw = tw.replace('@eddapeturs', '');
+    tw = tw.replace('@malfridurbot', '');
     if(tw.includes('-t') && tw.includes('-p')){
         var tmpStr;
         tmpStr = tw.replace('-t', '');
