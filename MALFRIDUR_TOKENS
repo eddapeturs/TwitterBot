@@ -1,8 +1,0 @@
-MALFRIDUR TOKENS:
-
-var T = new Twit({
-    consumer_key:         'aaa',
-    consumer_secret:      'aaa',
-    access_token:         'aa',
-    access_token_secret:  'a'
-});
