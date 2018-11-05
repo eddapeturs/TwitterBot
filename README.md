@@ -19,8 +19,9 @@ The bot is written in JavaScript and runs using the server-side scripting framew
 #### 3. Serve the application by running node app.js inside the TwitterBot directory
 
 #### Before serving make sure you:
-- Add your own credentials to config.js. These can be found under your Twitter Application on your developer account. This is done to connect to the TwitterAPI and listen to a stream.
+- Add a config.js file with your twitter credentials. These can be found under your Twitter Application on your developer account. This is done to connect to the TwitterAPI and listen to a stream.
 
+The content of config.js should look like this:
 ```javascript
 module.exports = {
     consumer_key:         'your_consumer_key',
