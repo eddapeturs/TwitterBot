@@ -5,7 +5,7 @@ var Iconv   = require('iconv').Iconv;
 var iconv   = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
 var T       = new Twitter(config);
 
-var malfridurId = '1056869573008506880';     // Get ID from factory
+var botId = '1056869573008506880';     // Get ID from factory
 
 startStream();  // Initializing bot
 
@@ -13,11 +13,11 @@ startStream();  // Initializing bot
 function startStream(){
     console.log('Starting NodeJS server');
 
-    var params = { follow: malfridurId };         // listen to activity on @malfridurBot
+    var params = { follow: botId };         // listen to activity on @malfridurBot
     var stream = T.stream('statuses/filter', params);
 
     stream.on('data', function (tweet) {
-        if(tweet.in_reply_to_user_id_str === malfridurId){          // make sure Malfridur was tagged
+        if(tweet.in_reply_to_user_id_str === botId){          // make sure Malfridur was tagged
             getProcessedString(stripCommand(tweet))                 // strip command and parse string
                 .then(createResponse)
                 .then(updateStatus)
