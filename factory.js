@@ -1,18 +1,15 @@
-var http = require('http');
+var http        = require('http');
 var querystring = require('querystring');
-var Iconv  = require('iconv').Iconv;
-var iconv = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
+var Iconv       = require('iconv').Iconv;
+var iconv       = new Iconv('ISO-8859-1', 'UTF-8');   // from UFT-8 to ISO
 
 var baseUrl = 'localhost';
 var port = '9000';
 
 module.exports = {
-    getParsedString: getParsedString,
-    getIds: getIds,
+    getProcessedString: getProcessedString,
     getRandPhrase: getRandPhrase
-
 };
-
 
 var options = {
     // gzip:true,
@@ -26,9 +23,9 @@ var options = {
     }
 };
 
-
-function getParsedString(tweetText){
-    console.log("Getting parsed string for ", tweetText)
+// Send query to locally running server
+function getProcessedString(tweetText){
+    console.log("Getting parsed string for: ", tweetText)
     var myPromise = new Promise(function(resolve, reject){
         const postData = querystring.stringify({
             'string': tweetText
@@ -57,10 +54,33 @@ function getParsedString(tweetText){
         req.end();
 
     });
-
     return myPromise;
 }
 
+
+function getRandPhrase(){
+    var max = stuffRobotsSay.length;
+    var min = 0;
+    var rand = Math.floor(Math.random() * (max-min) + min);
+    return stuffRobotsSay[rand];
+}
+
+// A list of things a robot might say
+var stuffRobotsSay = [
+    'Úff ég þarf að fara í olíuskipti fljótlega',
+    '42',
+    '01000011 01100001 01110010 01101100',
+    'Þurfið þið virkilega að sofa á HVERJU kvöldi??',
+    'Mmmm skrúfur eru það besta sem ég fæ',
+    'Beep Boop Boop',
+    '01000101 01100100 01100100 01100001',
+    'Hafið þið séð Wall-E? Það er uppáhalds myndin mín!',
+    '127.0.0.1 er best',
+    'Hasta la vista, elskan!',
+    'Tístu á mig með -t eða -p til að prófa'
+];
+
+// Hard coded object for testing w.o connection to IceNLP
 // var dummyObj = '{
 //     'string': 'Halló Carl hæ hæ hæ kv edda!',
 //     'tag': 'Halló au Carl nken-s hæ au hæ au hæ au kv nhen edda lkeovf ! !',
@@ -76,35 +96,6 @@ function getParsedString(tweetText){
 //     })
 //     return myPromise;
 // };
-
-
-
-function getIds(){
-    return '1056869573008506880';
-}
-
-
-function getRandPhrase(){
-    var max = shitRobotsSay.length;
-    var min = 0;
-    var rand = Math.floor(Math.random() * (max-min) + min);
-    return shitRobotsSay[rand];
-}
-
-var shitRobotsSay = [
-    'Úff ég þarf að fara í olíuskipti fljótlega',
-    '42',
-    '01000011 01100001 01110010 01101100',
-    'Þurfið þið virkilega að sofa á HVERJU kvöldi??',
-    'Mmmm skrúfur eru það besta sem ég fæ',
-    'Beep Boop Boop',
-    '01000101 01100100 01100100 01100001',
-    'Hafið þið séð Wall-E? Það er uppáhalds myndin mín!',
-    '127.0.0.1 er best',
-    'Hasta la vista, elskan!',
-    'Tístu á mig með -t eða -p til að prófa'
-];
-
 
 
 
