@@ -36,7 +36,7 @@ module.exports = {
   var botId = 'any_id';
 ```
 
-This implementation assumes you have a running IceNLP server locally. Click here for instructions.
+This implementation assumes you have a running IceNLP server locally. [Click here for instructions](https://github.com/eddapeturs/nlp).
 
 You can test out the functionality without IceNLP using the testWithoutIceNLP() function. To use it, comment out the startStream() function and comment in the testWithoutIceNLP() function. This only uses a hard coded string returned from the factory, but uses most of the functions in the app.js.
 
