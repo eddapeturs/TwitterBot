@@ -14,11 +14,12 @@ The bot is written in JavaScript and runs using the server-side scripting framew
 - A Twitter account with developer privileges
 
 ### Getting started:
-1. To get started, clone the repo and open in a JS IDE such as Webstorm.
-2. Run "npm install" in the command line to install all the necessary packages
+#### 1. To get started, clone the repo and open in a JS IDE such as Webstorm.
+#### 2. Run "npm install" in the command line to install all the necessary packages
+#### 3. Serve the application by running node app.js inside the TwitterBot directory
 
 #### Before serving make sure you:
-1. Add your own credentials to config.js. These can be found under your Twitter Application on your developer account. This is done to connect to the TwitterAPI and listen to a stream.
+- Add your own credentials to config.js. These can be found under your Twitter Application on your developer account. This is done to connect to the TwitterAPI and listen to a stream.
 
 ```javascript
 module.exports = {
@@ -28,13 +29,12 @@ module.exports = {
     access_token_secret:  'your_access_token_secret'
 };
 ```
-2. In app.js, change the ID of the user you wish to stream. Now it's my bot, so without changing it you will only listen to activity connected to @malfridurBot. If you're having trouble finding your ID, you can [do so here](http://mytwitterid.com/).
+- In app.js, change the ID of the user you wish to stream. Now it's my bot, so without changing it you will only listen to activity connected to @malfridurBot. If you're having trouble finding your ID, you can [do so here](http://mytwitterid.com/).
 
 
 ```javascript
   var botId = 'any_id';
 ```
-
 
 This implementation assumes you have a running IceNLP server locally. Click here for instructions.
 
