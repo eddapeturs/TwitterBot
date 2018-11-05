@@ -8,7 +8,10 @@ var port = '9000';
 
 module.exports = {
     getProcessedString: getProcessedString,
-    getRandPhrase: getRandPhrase
+    getRandPhrase: getRandPhrase,
+
+    // Testing functions
+    getDummyProcessedString: getDummyProcessedString
 };
 
 var options = {
@@ -87,15 +90,15 @@ var stuffRobotsSay = [
 //     'parse': '[InjP Halló au ] {*SUBJ [NP Carl nken-s ] } [InjP hæ au ] [InjP hæ au ] [InjP hæ au ] {*SUBJ [NP kv nhen ] } [AP edda lkeovf ] ! !'
 // };
 
-// function getParsedString(string) {
-//     var myPromise = new Promise(function (resolve, reject) {
-//         resolve('{ "string":"Hello my name is John", "tagg":"Hello nhee my nven name sng is e John nken-s", "parse":"{*QUAL [NP Hello nhee ] } {*SUBJ [NP my nven ] } [VPi name sng ] [FRW is e ] {*SUBJ [NP John nken-s ] }"}')
-//         if(false){
-//             reject();
-//         }
-//     })
-//     return myPromise;
-// };
+function getDummyProcessedString(string) {
+    var myPromise = new Promise(function (resolve, reject) {
+        resolve('{ "string":"Hello my name is John", "tagg":"Hello nhee my nven name sng is e John nken-s", "parse":"{*QUAL [NP Hello nhee ] } {*SUBJ [NP my nven ] } [VPi name sng ] [FRW is e ] {*SUBJ [NP John nken-s ] }"}')
+        if(false){
+            reject();
+        }
+    });
+    return myPromise;
+};
 
 
 

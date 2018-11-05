@@ -166,8 +166,11 @@ setTimeout(function() {
 /************* Testing functions ****************/
 /*------- Uncomment function call to try -------*/
 
-// Test a connection with IceNLP server running locally
 // testFactory();
+// testCode();
+// testWithoutIceNLP();
+
+// Test a connection with IceNLP server running locally w. no other string processing.
 function testFactory(){
     var text = "Hér er yndislegt að vera";
     fact.getProcessedString(text)
@@ -183,7 +186,7 @@ function testFactory(){
 
 // Creates a dummy tweet, sends to IceNLP server for processing,
 // splits up into separate tweets and console logs.
-// testCode();
+// Tests connection with server and string processing without another user tweeting.
 function testCode(){
     var dummyTweet = {
         text: "@MalfridurBot kæra vinkona, ekkert hefur verið staðfest í þeim efnum -t -p",
@@ -206,9 +209,47 @@ function testCode(){
             console.log('Error: ', err);
         });
 
-    function logResponse(tweetArray){
-        for(var i in tweetArray){
-            console.log("Reply no.", i, ": ",  tweetArray[i]);
+}
+
+
+// Returns a hard coded JSON object
+function testWithoutIceNLP(){
+    var dummyTweet = {
+        text: "@MalfridurBot kæra vinkona, ekkert hefur verið staðfest í þeim efnum -t -p",
+        user: {
+            screen_name: "botthildur"
         }
+    };
+
+    var dummyObj = stripCommand(dummyTweet);
+    console.log('Stripped object:\n ', dummyObj);
+
+    // Please note this returns a hard coded string from factory
+    return fact.getDummyProcessedString(dummyObj)
+        .then(function(dummyJSON) {
+                var object = dummyProcessing(dummyJSON);
+                return object;
+            })
+        .then(createResponse)
+        .then(logResponse)
+        .catch(function (err) {
+            console.log('error handler: ', err);
+        });
+
+
+    function dummyProcessing(jsonString){
+        var jsonStr = JSON.parse(jsonString);
+        dummyObj.jsonString = jsonStr;
+        console.log('Object after processing:\n ', dummyObj);
+
+        return dummyObj;
+    }
+}
+
+// Helper: Instead of updating status, we log response
+function logResponse(tweetArray){
+    console.log("--- Logging Tweets -- ")
+    for(var i in tweetArray){
+        console.log("Reply no.", i, ": ",  tweetArray[i]);
     }
 }
