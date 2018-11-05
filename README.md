@@ -10,7 +10,7 @@ The bot is written in JavaScript and runs using the server-side scripting framew
 ## Initialization
 
 ##### Prerequisites:
-- A machine with NodeJS installed to use the Node Package Manager (NPM).
+- A machine with NodeJS installed and the ability to use the Node Package Manager (NPM).
 - A Twitter account with developer privileges
 
 ### Getting started:
@@ -35,9 +35,10 @@ module.exports = {
   var botId = 'any_id';
 ```
 
-Also, this implementation assumes you have a running IceNLP server locally. Please see here for instructions.
 
-You can use this implementation without the IceNLP, but then you 
+This implementation assumes you have a running IceNLP server locally. Click here for instructions.
+
+You can test out the functionality without IceNLP using the testWithoutIceNLP() function. To use it, comment out the startStream() function and comment in the testWithoutIceNLP() function. This only uses a hard coded string returned from the factory, but uses most of the functions in the app.js.
 
 
 
